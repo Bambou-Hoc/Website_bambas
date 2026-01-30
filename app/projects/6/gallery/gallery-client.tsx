@@ -5,46 +5,12 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useLanguage } from '@/lib/language-context'
 
-const portraits = [
-  '/project6-cover.jpg',
-  '/portrait-1.jpg',
-  '/portrait-2.jpg',
-  '/portrait-3.jpg',
-  '/portrait-4.jpg',
-  '/portrait-5.jpg',
-  '/portrait-6.jpg',
-  '/portrait-7.jpg',
-  '/portrait-8.jpg',
-  '/portrait-9.jpg',
-  '/portrait-10.jpg',
-  '/portrait-11.jpg',
-  '/portrait-12.jpg',
-  '/portrait-15.jpg',
-  '/portrait-16.jpg',
-  '/portrait-17.jpg',
-  '/portrait-18.jpg',
-  '/portrait-19.jpg',
-  '/portraits/portrait-20.jpg',
-  '/portraits/portrait-21.jpg',
-  '/portraits/portrait-22.jpg',
-  '/portraits/portrait-23.jpg',
-  '/portraits/portrait-24.jpg',
-  '/portraits/portrait-25.jpg',
-  '/portraits/P40a copy 2.jpg',
-  '/portraits/P40 bcopy 2.jpg',
-  '/portraits/P40 ccopy 2.jpg',
-  '/portraits/P42 copy.jpg',
-  '/portraits/P61 copy.jpg',
-  '/portraits/P63 ccopy 2.jpg',
-  '/portraits/P79 copy.jpg',
-  '/portraits/P93 copy.jpg',
-  '/portraits/P99a copy.jpg',
-]
-
-export default function PortraitGalleryPage() {
+export default function PortraitGalleryClient({ images }: { images: string[] }) {
   const { language, setLanguage, t } = useLanguage()
   const [lightboxImage, setLightboxImage] = useState<string | null>(null)
   const [lightboxIndex, setLightboxIndex] = useState(0)
+  
+  const portraits = images
 
   const openLightbox = (image: string, index: number) => {
     setLightboxImage(image)

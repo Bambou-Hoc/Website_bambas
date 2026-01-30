@@ -3,7 +3,6 @@
 import React from "react"
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { useParams } from 'next/navigation'
 import { useLanguage } from '@/lib/language-context'
 
 const projectsData: Record<string, {
@@ -108,41 +107,7 @@ const projectsData: Record<string, {
     description: 'For one year, I committed to creating a portrait every single day. This discipline resulted in 365 portraits, each one a unique exploration of the human face through various media and techniques. The project became a meditation on consistency, observation, and the infinite variety found in portraiture.',
     area: '365 Portraits',
     architect: 'Bambou Hocepied',
-    images: [
-      '/project6-cover.jpg',
-      '/portrait-1.jpg',
-      '/portrait-2.jpg',
-      '/portrait-3.jpg',
-      '/portrait-4.jpg',
-      '/portrait-5.jpg',
-      '/portrait-6.jpg',
-      '/portrait-7.jpg',
-      '/portrait-8.jpg',
-      '/portrait-9.jpg',
-      '/portrait-10.jpg',
-      '/portrait-11.jpg',
-      '/portrait-12.jpg',
-      '/portrait-15.jpg',
-      '/portrait-16.jpg',
-      '/portrait-17.jpg',
-      '/portrait-18.jpg',
-      '/portrait-19.jpg',
-      '/portraits/portrait-20.jpg',
-      '/portraits/portrait-21.jpg',
-      '/portraits/portrait-22.jpg',
-      '/portraits/portrait-23.jpg',
-      '/portraits/portrait-24.jpg',
-      '/portraits/portrait-25.jpg',
-      '/portraits/P40a copy 2.jpg',
-      '/portraits/P40 bcopy 2.jpg',
-      '/portraits/P40 ccopy 2.jpg',
-      '/portraits/P42 copy.jpg',
-      '/portraits/P61 copy.jpg',
-      '/portraits/P63 ccopy 2.jpg',
-      '/portraits/P79 copy.jpg',
-      '/portraits/P93 copy.jpg',
-      '/portraits/P99a copy.jpg',
-    ]
+    images: [] // Will be populated from props
   }
 }
 
@@ -156,8 +121,7 @@ interface DroppedImage {
   rotation: number
 }
 
-export default function ProjectPage() {
-  const params = useParams()
+export default function ProjectClient({ id, portraitImages }: { id: string, portraitImages: string[] }) {
   const { language, setLanguage, t } = useLanguage()
   const [showInfo, setShowInfo] = useState(false)
   const [lightboxImage, setLightboxImage] = useState<string | null>(null)
@@ -167,8 +131,13 @@ export default function ProjectPage() {
   const lastDropTime = React.useRef(0)
   const imageIdCounter = React.useRef(0)
   
-  const projectId = typeof params?.id === 'string' ? params.id : '1'
+  const projectId = id
   const project = projectsData[projectId] || projectsData['1']
+
+  // Override images for project 6 if provided from server
+  if (projectId === '6' && portraitImages && portraitImages.length > 0) {
+    project.images = portraitImages
+  }
 
   const openLightbox = (image: string, index: number) => {
     setLightboxImage(image)
