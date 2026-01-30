@@ -82,6 +82,9 @@ function ProjectCard({ project }: { project: { id: number; title: string; images
 export default function Home() {
   const { language, setLanguage, t } = useLanguage()
   
+  // Array of portrait image paths: /Portraits/1.jpg ... /Portraits/62.jpg
+  const portraitImages = Array.from({ length: 62 }, (_, i) => `/Portraits/${i + 1}.jpg`)
+
   const projects = [
     {
       id: 1,
@@ -132,7 +135,7 @@ export default function Home() {
     {
       id: 6,
       title: 'Portrait of the Day',
-      images: ['/project6-cover.jpg'],
+      images: portraitImages,
     },
   ]
 
