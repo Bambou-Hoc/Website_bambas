@@ -107,7 +107,7 @@ const projectsData: Record<string, {
     description: 'For one year, I committed to creating a portrait every single day. This discipline resulted in 365 portraits, each one a unique exploration of the human face through various media and techniques. The project became a meditation on consistency, observation, and the infinite variety found in portraiture.',
     area: '365 Portraits',
     architect: 'Bambou Hocepied',
-    images: [] // Will be populated from props
+    images: Array.from({ length: 365 }, (_, i) => `/Portraits/${i + 1}.jpg`)
   }
 }
 

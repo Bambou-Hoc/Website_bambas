@@ -4,7 +4,7 @@ import React from "react"
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLanguage } from '@/lib/language-context'
 
 function ProjectCard({ project }: { project: { id: number; title: string; images: string[]; objectPosition?: string } }) {
@@ -82,8 +82,18 @@ function ProjectCard({ project }: { project: { id: number; title: string; images
 export default function Home() {
   const { language, setLanguage, t } = useLanguage()
   
-  // Array of portrait image paths: /Portraits/1.jpg ... /Portraits/62.jpg
-  const portraitImages = Array.from({ length: 62 }, (_, i) => `/Portraits/${i + 1}.jpg`)
+  const [portraitImages, setPortraitImages] = useState<string[]>([])
+
+  useEffect(() => {
+    fetch('/api/portraits')
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setPortraitImages(data)
+        }
+      })
+      .catch((err) => console.error('Failed to load portraits:', err))
+  }, [])
 
   const projects = [
     {
@@ -135,7 +145,7 @@ export default function Home() {
     {
       id: 6,
       title: 'Portrait of the Day',
-      images: portraitImages,
+      images: portraitImages.length > 0 ? portraitImages : ['/placeholder.svg'],
     },
   ]
 
