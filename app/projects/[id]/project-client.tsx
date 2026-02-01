@@ -2,114 +2,10 @@
 
 import React from "react"
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useLanguage } from '@/lib/language-context'
-
-const projectsData: Record<string, {
-  title: string
-  location: string
-  year: string
-  summary: string
-  description: string
-  area: string
-  architect: string
-  images: string[]
-}> = {
-  '1': {
-    title: 'DWELL IN MEMORY',
-    location: 'Porto Santo, Portugal',
-    year: '2023',
-    summary: 'Drawing (in) Aridity. Idle Instances. An architectural thesis exploring the relationship between landscape, memory, and winemaking traditions on the island of Porto Santo.',
-    description: 'This project documents an architectural proposal developed to deeply understand and reconnect with the nature of Porto Santo island. The design proposes a cooperative winery that links the local population with visitors, celebrating both the visit and the routine of traditional winemaking. The gravity winery follows the rhythm suggested by crocheted walls, stretching towards the sea and culminating in a courtyard sheltered by the dunes.',
-    area: 'Architecture Thesis',
-    architect: 'Bambou Hocepied',
-    images: [
-      '/project1-img1.jpg',
-      '/project1-img2.jpg',
-      '/project1-img3.jpg',
-      '/project1-img4.jpg',
-      '/project1-img5.jpg',
-      '/project1-img6.jpg',
-      '/project1-img7.jpg',
-      '/project1-img8.jpg',
-      '/project1-img9.jpg',
-      '/project1-img10.jpg',
-      '/project1-img11.jpg',
-      '/project1-img12.jpg',
-      '/project1-img13.jpg',
-      '/project1-img14.jpg',
-    ]
-  },
-  '2': {
-    title: 'HANDBAG COLLECTION',
-    location: 'Studio',
-    year: '2024',
-    summary: 'A handcrafted handbag made from cotton saree fabric sourced from India, featuring intricate geometric patterns and rich, vibrant colors.',
-    description: 'A handcrafted handbag made from cotton saree fabric sourced from India, featuring intricate geometric patterns and rich, vibrant colors.',
-    area: 'Limited Edition',
-    architect: 'Bambou Hocepied',
-    images: [
-      '/project2-img1.jpg',
-      '/project2-img3.jpg',
-      '/project2-img4.jpg',
-    ]
-  },
-  '3': {
-    title: 'MINIMALIST STUDIO',
-    location: 'Madrid',
-    year: '2023',
-    summary: 'A clean, minimalist workspace designed for creative professionals.',
-    description: 'A thoughtfully designed studio space that prioritizes simplicity and functionality.',
-    area: '150 m²',
-    architect: 'Bambou Hocepied',
-    images: ['/desert-sand-dunes.jpg']
-  },
-  '4': {
-    title: 'FLEA MARKET',
-    location: 'Brussels',
-    year: '2025',
-    summary: 'Event poster design for a community flea market featuring DJ sets, tattoos, upcycled jewelry, and more.',
-    description: 'Creative poster design for a Brussels flea market event. The event features DJ sets, tattoos, upcycled jewelry, tooth gems, and second-hand clothes. A vibrant community gathering celebrating creativity and sustainability.',
-    area: 'Event Design',
-    architect: 'Bambou Hocepied',
-    images: ['/project4-img1.png', '/project4-img2.jpg']
-  },
-  '5': {
-    title: 'CALENDAR',
-    location: 'Mexico',
-    year: '2026',
-    summary: 'A 2026 art calendar featuring photography by Dos Cabezas, showcasing vibrant imagery across 12 months.',
-    description: 'An artistic 2026 calendar created in collaboration with Dos Cabezas. Each month features unique photography blending surreal compositions with Mexican landscapes and architecture. The calendar showcases creative use of color, light, and composition throughout the year.',
-    area: 'Print Design',
-    architect: 'Bambou Hocepied',
-    images: [
-      '/project5-img1.jpg',
-      '/project5-img2.jpg',
-      '/project5-img3.jpg',
-      '/project5-img4.jpg',
-      '/project5-img5.jpg',
-      '/project5-img6.png',
-      '/project5-img7.jpg',
-      '/project5-img8.jpg',
-      '/project5-img9.jpg',
-      '/project5-img10.jpg',
-      '/project5-img11.jpg',
-      '/project5-img12.jpg',
-      '/project5-img13.png',
-      '/project5-cover.jpg',
-    ]
-  },
-  '6': {
-    title: 'PORTRAIT OF THE DAY',
-    location: 'Various',
-    year: '2024-2025',
-    summary: 'A daily drawing practice spanning one full year, capturing 365 unique portraits.',
-    description: 'For one year, I committed to creating a portrait every single day. This discipline resulted in 365 portraits, each one a unique exploration of the human face through various media and techniques. The project became a meditation on consistency, observation, and the infinite variety found in portraiture.',
-    area: '365 Portraits',
-    architect: 'Bambou Hocepied',
-    images: Array.from({ length: 365 }, (_, i) => `/Portraits/${i + 1}.jpg`)
-  }
-}
+import { projectsData } from '@/lib/projects-data'
 
 interface DroppedImage {
   id: number
@@ -322,11 +218,13 @@ export default function ProjectClient({ id, portraitImages }: { id: string, port
             {/* VIEW ALL WORK link at bottom right - always above images */}
             <div className="absolute bottom-8 right-8 z-[200]">
               <a
+              <Link
                 href="/projects/6/gallery"
                 className="text-sm uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
               >
                 View All Work
               </a>
+              </Link>
             </div>
           </div>
         ) : projectId === '1' ? (
