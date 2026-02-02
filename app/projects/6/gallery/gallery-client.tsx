@@ -37,24 +37,26 @@ export default function PortraitGalleryClient({ images }: { images: string[] }) 
     <div className="min-h-screen bg-background">
       {/* Gallery Grid */}
       <main className="px-4 py-8 pb-20">
-        <div className="grid grid-cols-5 md:grid-cols-8 lg:grid-cols-10 gap-1">
+        <div className="grid grid-cols-8 gap-12 px-10 py-10">
           {portraits.map((image, index) => (
             <button
               key={index}
               onClick={() => openLightbox(image, index)}
-              className="relative aspect-[3/4] overflow-hidden group"
+              className="group"
               onContextMenu={(e) => e.preventDefault()}
             >
-              <Image
-                src={image || "/placeholder.svg"}
-                alt={`Portrait ${index + 1}`}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105 select-none"
-                sizes="(min-width: 1024px) 10vw, (min-width: 768px) 12.5vw, 20vw"
-                unoptimized
-                draggable={false}
-              />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+              <div className="relative aspect-[3/4] overflow-hidden">
+                <Image
+                  src={image || "/placeholder.svg"}
+                  alt={`Portrait ${index + 1}`}
+                  fill
+                  className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105 select-none"
+                  sizes="(min-width: 1024px) 10vw, (min-width: 768px) 12.5vw, 20vw"
+                  unoptimized
+                  draggable={false}
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+              </div>
             </button>
           ))}
         </div>

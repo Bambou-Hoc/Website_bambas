@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useLanguage } from '@/lib/language-context'
 import { projectsData } from '@/lib/projects-data'
+import CalendarBook from './calendar-book'
 
 interface DroppedImage {
   id: number
@@ -17,7 +18,7 @@ interface DroppedImage {
   rotation: number
 }
 
-export default function ProjectClient({ id, portraitImages }: { id: string, portraitImages: string[] }) {
+export default function ProjectClient({ id, portraitImages }: { id: string, portraitImages?: string[] }) {
   const { language, setLanguage, t } = useLanguage()
   const [showInfo, setShowInfo] = useState(false)
   const [lightboxImage, setLightboxImage] = useState<string | null>(null)
@@ -28,11 +29,16 @@ export default function ProjectClient({ id, portraitImages }: { id: string, port
   const imageIdCounter = React.useRef(0)
   
   const projectId = id
-  const project = projectsData[projectId] || projectsData['1']
+  const rawProject = projectsData[projectId] || projectsData['1']
 
-  // Override images for project 6 if provided from server
-  if (projectId === '6' && portraitImages && portraitImages.length > 0) {
-    project.images = portraitImages
+  // Create a derived project object to avoid mutating the global constant
+  const project = {
+    ...rawProject,
+    images: (projectId === '6' && portraitImages && portraitImages.length > 0) 
+      ? portraitImages 
+      : (projectId === '5')
+      ? rawProject.images.slice(1)
+      : rawProject.images
   }
 
   const openLightbox = (image: string, index: number) => {
@@ -92,8 +98,12 @@ export default function ProjectClient({ id, portraitImages }: { id: string, port
 
   // Randomize the starting image so you don't always see the first ones
   useEffect(() => {
-    setCurrentImageIndex(Math.floor(Math.random() * project.images.length))
-  }, [project.images.length])
+    if (projectId === '6') {
+      setCurrentImageIndex(Math.floor(Math.random() * project.images.length))
+    } else {
+      setCurrentImageIndex(0)
+    }
+  }, [projectId, project.images.length])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -109,44 +119,81 @@ export default function ProjectClient({ id, portraitImages }: { id: string, port
   return (
     <div className="min-h-screen bg-background flex">
       {/* Left Sidebar with Project Info */}
-      <aside className="fixed left-0 top-0 bottom-0 w-80 border-r border-border p-12 flex flex-col">
+      <aside className="fixed left-0 top-0 bottom-0 w-80 border-r border-border p-12 flex flex-col overflow-y-auto scrollbar-hide">
         <h1 className="font-bold text-3xl tracking-tight mb-16">
           <a href="/" className="hover:opacity-70 transition-opacity">BAMBOU HOCEPIED</a>
         </h1>
         
         <div className="flex-1">
-          <h2 className="font-normal text-xl mb-2 tracking-wide">{project.title}</h2>
-          <p className="text-muted-foreground mb-4">{project.location}, {project.year}</p>
+          <h2 className="font-bold text-xl mb-2 tracking-wide">{project.title}</h2>
+          {projectId === '2' && (
+            <h3 className="font-normal text-lg mb-2 tracking-wide text-muted-foreground">Textile Study 01</h3>
+          )}
+          {projectId !== '2' && (
+            <p className="text-muted-foreground mb-4">{project.location}, {project.year}</p>
+          )}
           
-          <p className="text-sm leading-relaxed mb-6 text-foreground/80">{project.summary}</p>
+          <p className="text-sm leading-relaxed mb-6 text-foreground/80 text-justify">{project.summary}</p>
           
-          <button 
-            onClick={() => setShowInfo(!showInfo)}
-            className="text-lg mb-4 hover:opacity-70 transition-opacity text-left"
-          >
-            {showInfo ? `- ${t('project.info')}` : `+ ${t('project.info')}`}
-          </button>
-          
-          {showInfo && (
-            <div className="space-y-4 text-sm text-muted-foreground animate-in fade-in duration-200">
+          {projectId === '2' ? (
+            <div className="space-y-4 text-sm text-muted-foreground">
               <div>
-                <p className="font-medium text-foreground mb-1">{t('project.description')}</p>
-                <p className="leading-relaxed">{project.description}</p>
+                <p className="font-medium text-foreground mb-1">Project Type</p>
+                <p>One-of-a-Kind / Personal Study</p>
               </div>
               <div>
-                <p className="font-medium text-foreground mb-1">{t('project.area')}</p>
-                <p>{project.area}</p>
+                <p className="font-medium text-foreground mb-1">Year</p>
+                <p>2025</p>
               </div>
               <div>
-                <p className="font-medium text-foreground mb-1">{t('project.architect')}</p>
-                <p>{project.architect}</p>
+                <p className="font-medium text-foreground mb-1">Designer/Maker</p>
+                <p>Bambou Hocepied</p>
               </div>
             </div>
+          ) : projectId === '5' ? (
+            <div className="space-y-4 text-sm text-muted-foreground">
+              <p>On desktop? <span className="font-bold">Hover to listen.</span></p>
+              <div>
+                <p className="font-medium text-foreground mb-1">Designers</p>
+                <p>Bambou Hocepied</p>
+                <p>Lucia Hagerman</p>
+              </div>
+            </div>
+          ) : (
+            <>
+              <button 
+                onClick={() => setShowInfo(!showInfo)}
+                className="text-lg mb-4 hover:opacity-70 transition-opacity text-left"
+              >
+                {showInfo ? `- ${t('project.info')}` : `+ ${t('project.info')}`}
+              </button>
+              
+              {showInfo && (
+                <div className="space-y-4 text-sm text-muted-foreground animate-in fade-in duration-200">
+                  <div>
+                    <p className="font-medium text-foreground mb-1">{t('project.description')}</p>
+                    <p className="leading-relaxed text-justify">{project.description}</p>
+                  </div>
+                  {projectId !== '6' && (
+                    <>
+                      <div>
+                        <p className="font-medium text-foreground mb-1">{t('project.area')}</p>
+                        <p>{project.area}</p>
+                      </div>
+                      <div>
+                        <p className="font-medium text-foreground mb-1">{t('project.architect')}</p>
+                        <p>{project.architect}</p>
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
+            </>
           )}
         </div>
         
         {/* Navigation */}
-        <nav className="space-y-2 text-sm uppercase tracking-wider">
+        <nav className="space-y-2 text-sm uppercase tracking-wider mt-8">
           <a href="/" className="block hover:opacity-70 transition-opacity">{t('nav.projects')}</a>
         </nav>
         
@@ -169,12 +216,7 @@ export default function ProjectClient({ id, portraitImages }: { id: string, port
           >
             PT
           </button>
-          <a 
-            href="mailto:bambouhocepied@gmail.com" 
-            className="text-left hover:text-foreground transition-colors mt-4"
-          >
-            bambouhocepied@gmail.com
-          </a>
+          {/* Email removed from project pages secondary menu */}
         </div>
       </aside>
 
@@ -191,13 +233,13 @@ export default function ProjectClient({ id, portraitImages }: { id: string, port
               <div
                 key={img.id}
                 className="absolute pointer-events-none animate-float"
-                style={{
+                  style={{
                   left: img.x,
                   top: img.y,
                   zIndex: img.id % 100,
-                  ['--float-x' as string]: `${img.floatOffsetX}px`,
-                  ['--float-y' as string]: `${img.floatOffsetY}px`,
-                  ['--rotation' as string]: `${img.rotation}deg`,
+                  ['--float-x']: `${img.floatOffsetX}px`,
+                  ['--float-y']: `${img.floatOffsetY}px`,
+                  ['--rotation']: `${img.rotation}deg`,
                 }}
               >
                 <div className="relative w-52 h-72">
@@ -217,13 +259,11 @@ export default function ProjectClient({ id, portraitImages }: { id: string, port
             
             {/* VIEW ALL WORK link at bottom right - always above images */}
             <div className="absolute bottom-8 right-8 z-[200]">
-              <a
               <Link
                 href="/projects/6/gallery"
                 className="text-sm uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
               >
                 View All Work
-              </a>
               </Link>
             </div>
           </div>
@@ -271,6 +311,34 @@ export default function ProjectClient({ id, portraitImages }: { id: string, port
                 </div>
               ))}
             </div>
+          </div>
+        ) : projectId === '5' ? (
+          /* Single image view for Project 5 (Calendar) - Click to advance */
+          <div 
+            className="h-screen w-full flex items-center justify-center p-4 md:p-12 bg-background overflow-hidden"
+          >
+            <CalendarBook />
+          </div>
+        ) : projectId === '2' ? (
+          /* Vertical layout for project 2 - Same width (full width) */
+          <div className="space-y-12 px-8 md:px-24 pb-12">
+            {project.images.map((image, index) => (
+              <div 
+                key={index} 
+                className="relative w-full max-w-[70%] mx-auto"
+              >
+                <Image
+                  src={image || "/placeholder.svg"}
+                  alt={`${project.title} - Image ${index + 1}`}
+                  width={1200}
+                  height={800}
+                  className="w-full h-auto protected-image select-none"
+                  sizes="(min-width: 1024px) calc(100vw - 320px), 100vw"
+                  draggable={false}
+                  onContextMenu={(e) => e.preventDefault()}
+                />
+              </div>
+            ))}
           </div>
         ) : (
           /* Standard vertical layout for other projects */

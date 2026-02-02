@@ -4,8 +4,9 @@ import React from "react"
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useLanguage } from '@/lib/language-context'
+import { projectsData } from '@/lib/projects-data'
 
 function ProjectCard({ project }: { project: { id: number; title: string; images: string[]; objectPosition?: string } }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -82,33 +83,16 @@ function ProjectCard({ project }: { project: { id: number; title: string; images
 export default function Home() {
   const { language, setLanguage, t } = useLanguage()
   
-  const [portraitImages, setPortraitImages] = useState<string[]>([])
-
-  useEffect(() => {
-    fetch('/api/portraits')
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data)) {
-          setPortraitImages(data)
-        }
-      })
-      .catch((err) => console.error('Failed to load portraits:', err))
-  }, [])
-
   const projects = [
     {
       id: 1,
       title: 'Dwell in Memory',
-      images: ['/project1-cover.jpg'],
+      images: projectsData['1'].images,
     },
     {
       id: 2,
-      title: 'Handbag Collection',
-      images: [
-        '/project2-img1.jpg',
-        '/project2-img3.jpg',
-        '/project2-img4.jpg',
-      ],
+      title: 'The Saree Tote',
+      images: projectsData['2'].images,
     },
     {
       id: 3,
@@ -118,34 +102,19 @@ export default function Home() {
     {
       id: 4,
       title: 'Posters',
-      images: ['/project4-img1.png', '/project4-img2.jpg'],
+      images: projectsData['4'].images,
       objectPosition: 'top',
     },
     {
       id: 5,
       title: 'Calendar',
-      images: [
-        '/project5-cover.jpg',
-        '/project5-img1.jpg',
-        '/project5-img2.jpg',
-        '/project5-img3.jpg',
-        '/project5-img4.jpg',
-        '/project5-img5.jpg',
-        '/project5-img6.png',
-        '/project5-img7.jpg',
-        '/project5-img8.jpg',
-        '/project5-img9.jpg',
-        '/project5-img10.jpg',
-        '/project5-img11.jpg',
-        '/project5-img12.jpg',
-        '/project5-img13.png',
-      ],
+      images: projectsData['5'].images,
       objectPosition: 'top',
     },
     {
       id: 6,
       title: 'Portrait of the Day',
-      images: portraitImages.length > 0 ? portraitImages : ['/placeholder.svg'],
+      images: projectsData['6'].images,
     },
   ]
 
@@ -160,7 +129,7 @@ export default function Home() {
             </h1>
           </Link>
           
-          <nav className="flex flex-col gap-4">
+          <nav className="flex flex-col gap-4 mt-12">
             <Link 
               href="/about" 
               className="text-foreground hover:text-muted-foreground transition-colors uppercase text-sm tracking-widest"
@@ -201,12 +170,6 @@ export default function Home() {
           >
             PT
           </button>
-          <a 
-            href="mailto:bambouhocepied@gmail.com" 
-            className="text-left hover:text-foreground transition-colors mt-4"
-          >
-            bambouhocepied@gmail.com
-          </a>
         </div>
       </aside>
 
