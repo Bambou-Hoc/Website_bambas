@@ -25,6 +25,9 @@ export default function RootLayout({
       <body>
         <LanguageProvider>
           {children}
+
+          {/* Footer removed — copyright moved into side menu */}
+
         </LanguageProvider>
       </body>
     </html>

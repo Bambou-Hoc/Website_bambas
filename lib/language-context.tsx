@@ -50,7 +50,7 @@ const translations: Record<Language, Record<string, string>> = {
     'about.bio': 'Mi nombre es Bambou. Nací en Bélgica y he vivido la mayor parte de mi vida en Portugal. Completé mi educación secundaria en Portugal antes de tomar un año sabático como estudiante de intercambio Rotary en California, donde viví con una familia estadounidense mientras asistía a la escuela secundaria. Al regresar, me inscribí en Ingeniería Civil en el Instituto Superior Técnico (IST), y luego me cambié al Máster Integrado de Arquitectura. En mi cuarto año, fui estudiante de intercambio en la Universidad Nacional de Seúl, Corea del Sur, durante dos semestres, donde desarrollé una mayor conciencia del contexto cultural y el espacio. Elegí IST por su sólida base técnica combinada con un enfoque riguroso del diseño y el proceso creativo. Después de completar mis estudios, me mudé a México, donde trabajé en Reyes Rios + Larraín en Mérida y luego en Vertebral en Ciudad de México. Desde temprana edad, me he sentido atraída por el diseño y la práctica creativa. A través del dibujo, la pintura, la cerámica, la fotografía y la costura, he explorado diferentes formas de expresión y continúo buscando nuevas formas de crear.',
     
     // Contact page
-    'contact.teamSport': 'El diseño se hace en equipo.',
+    'contact.teamSport': 'Design se hace en equipo.',
     'contact.yourName': 'TU NOMBRE:',
     'contact.yourEmail': 'TU EMAIL:',
     'contact.howCanIHelp': '¿CÓMO PUEDO AYUDARTE?',
@@ -78,7 +78,7 @@ const translations: Record<Language, Record<string, string>> = {
     'about.bio': 'O meu nome é Bambou. Nasci na Bélgica e vivi a maior parte da minha vida em Portugal. Completei o ensino secundário em Portugal antes de fazer um ano sabático como estudante de intercâmbio Rotary na Califórnia, onde vivi com uma família americana enquanto frequentava o liceu. Ao regressar, inscrevi-me em Engenharia Civil no Instituto Superior Técnico (IST), tendo depois transitado para o Mestrado Integrado em Arquitectura. No quarto ano, fui estudante de intercâmbio na Universidade Nacional de Seul, Coreia do Sul, durante dois semestres, onde desenvolvi uma maior consciência do contexto cultural e do espaço. Escolhi o IST pela sua sólida base técnica combinada com uma abordagem rigorosa ao design e ao processo criativo. Após concluir os estudos, mudei-me para o México, onde trabalhei na Reyes Rios + Larraín em Mérida e posteriormente na Vertebral na Cidade do México. Desde cedo, senti-me atraída pelo design e pela prática criativa. Através do desenho, pintura, cerâmica, fotografia e costura, explorei diferentes formas de expressão e continuo a procurar novas formas de criar.',
     
     // Contact page
-    'contact.teamSport': 'O design faz-se em equipa.',
+    'contact.teamSport': 'Design faz-se em equipa.',
     'contact.yourName': 'O TEU NOME:',
     'contact.yourEmail': 'O TEU EMAIL:',
     'contact.howCanIHelp': 'COMO POSSO AJUDAR-TE?',

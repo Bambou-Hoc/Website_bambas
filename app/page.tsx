@@ -96,13 +96,18 @@ export default function Home() {
     },
     {
       id: 3,
-      title: 'Minimalist Studio',
-      images: ['/desert-sand-dunes.jpg'],
+      title: 'Iconos mexicanos',
+      images: projectsData['3'].images,
     },
     {
       id: 4,
-      title: 'Posters',
-      images: projectsData['4'].images,
+      title: 'Tiendas',
+      images: [
+        '/Watercolors/tiendas/tienda%2001.jpg',
+        '/Watercolors/tiendas/tienda%2002.jpg',
+        '/Watercolors/tiendas/tienda%2003.jpg',
+        '/Watercolors/tiendas/tienda%2004.jpg',
+      ],
       objectPosition: 'top',
     },
     {
@@ -116,7 +121,25 @@ export default function Home() {
       title: 'Portrait of the Day',
       images: projectsData['6'].images,
     },
+    {
+      id: 7,
+      title: projectsData['7'].title || 'Project 7',
+      images: projectsData['7'].images,
+    },
+    {
+      id: 8,
+      title: projectsData['8'].title || 'Project 8',
+      images: projectsData['8'].images,
+    },
   ]
+
+  const scrollToProjects = (e: React.MouseEvent) => {
+    e.preventDefault()
+    const projectsSection = document.getElementById('projects')
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -136,12 +159,13 @@ export default function Home() {
             >
               {t('nav.about')}
             </Link>
-            <Link 
-              href="#projects" 
-              className="text-foreground hover:text-muted-foreground transition-colors uppercase text-sm tracking-widest"
+            <a 
+              href="/#projects" 
+              onClick={scrollToProjects}
+              className="text-foreground hover:text-muted-foreground transition-colors uppercase text-sm tracking-widest cursor-pointer"
             >
               {t('nav.projects')}
-            </Link>
+            </a>
             <Link 
               href="/contact" 
               className="text-foreground hover:text-muted-foreground transition-colors uppercase text-sm tracking-widest"
@@ -170,6 +194,9 @@ export default function Home() {
           >
             PT
           </button>
+          <p className="text-left mt-4 text-xs text-muted-foreground leading-tight transform origin-left" style={{ transform: 'scale(0.6)' }}>
+            © 2026 Bambou Hocepied. All Rights Reserved. Designed &amp; Built by Bambou Hocepied
+          </p>
         </div>
       </aside>
 

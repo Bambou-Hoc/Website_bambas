@@ -57,18 +57,20 @@ export default function AboutPage() {
           >
             PT
           </button>
-          <a 
-            href="mailto:bambouhocepied@gmail.com" 
-            className="text-left hover:text-foreground transition-colors mt-4"
-          >
-            bambouhocepied@gmail.com
-          </a>
+          <p className="text-left mt-4 text-xs text-muted-foreground leading-tight transform origin-left" style={{ transform: 'scale(0.6)' }}>
+            © 2026 Bambou Hocepied. All Rights Reserved. Designed &amp; Built by Bambou Hocepied
+          </p>
         </div>
       </aside>
 
       {/* Main Content */}
       <main className="ml-64 h-screen overflow-y-auto flex items-start justify-center px-14 py-16">
-        <div className="max-w-xs">
+        <div className="max-w-xs flex flex-col gap-8">
+          <img
+            src="/About/IMG_0328.jpeg"
+            alt="Bambou Hocepied"
+            className="w-full h-auto block"
+          />
           <p className="text-foreground text-sm leading-relaxed text-justify" style={{ hyphens: 'none', WebkitHyphens: 'none' }}>
             {t('about.bio')}
           </p>

@@ -16,13 +16,7 @@ export default function ContactPage() {
     services: [] as string[],
     about: ''
   })
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    const subject = `Inquiry from ${formData.name}`
-    const body = `Name: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0ACompany: ${formData.company}%0D%0A%0D%0AServices: ${formData.services.join(', ')}%0D%0A%0D%0AMessage:%0D%0A${formData.message}`
-    window.location.href = `mailto:bambouhocepied@gmail.com?subject=${subject}&body=${body}`
-  }
+  
 
   return (
     <div className="min-h-screen bg-background">
@@ -79,12 +73,9 @@ export default function ContactPage() {
           >
             PT
           </button>
-          <a 
-            href="mailto:bambouhocepied@gmail.com" 
-            className="text-left hover:text-foreground transition-colors mt-4"
-          >
-            bambouhocepied@gmail.com
-          </a>
+          <p className="text-left mt-4 text-xs text-muted-foreground leading-tight transform origin-left" style={{ transform: 'scale(0.6)' }}>
+            © 2026 Bambou Hocepied. All Rights Reserved. Designed &amp; Built by Bambou Hocepied
+          </p>
         </div>
       </aside>
 
@@ -118,8 +109,17 @@ export default function ContactPage() {
         {/* Second Section - Form (visible on scroll) */}
         <section className="min-h-screen flex justify-end px-14 py-16">
           <div className="w-full max-w-sm">
-            {/* Contact Form */}
-            <form onSubmit={handleSubmit} className="w-full space-y-8">
+            {/* Contact Form (posts to Formsubmit.co) */}
+            <form
+              action="https://formsubmit.co/bambouhocepied@gmail.com"
+              method="POST"
+              className="w-full space-y-8"
+            >
+              {/* Configuration fields for Formsubmit */}
+              <input type="hidden" name="_next" value="https://www.bambouhocepied.com/contact" />
+              <input type="hidden" name="_subject" value="New Message from Bambou Hocepied Website" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="text" name="_honey" style={{ display: 'none' }} />
               {/* Name */}
               <div className="space-y-2">
                 <label className="text-xs uppercase tracking-widest text-muted-foreground">
@@ -127,6 +127,7 @@ export default function ContactPage() {
                 </label>
                 <input
                   type="text"
+                  name="name"
                   value={formData.name}
                   onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                   placeholder={t('contact.namePlaceholder')}
@@ -141,6 +142,7 @@ export default function ContactPage() {
                 </label>
                 <input
                   type="email"
+                  name="email"
                   value={formData.email}
                   onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                   placeholder={t('contact.emailPlaceholder')}
@@ -154,6 +156,7 @@ export default function ContactPage() {
                   {t('contact.howCanIHelp')}
                 </label>
                 <textarea
+                  name="message"
                   value={formData.message}
                   onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
                   placeholder={t('contact.messagePlaceholder')}

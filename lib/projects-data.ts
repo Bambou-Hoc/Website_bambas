@@ -49,14 +49,24 @@ export const projectsData: Record<string, {
     ]
   },
   '3': {
-    title: 'MINIMALIST STUDIO',
+    title: 'Iconos mexicanos',
     location: 'Madrid',
     year: '2023',
     summary: 'A clean, minimalist workspace designed for creative professionals.',
     description: 'A thoughtfully designed studio space that prioritizes simplicity and functionality.',
     area: '150 m²',
     architect: 'Bambou Hocepied',
-    images: ['/desert-sand-dunes.jpg']
+    images: [
+      '/Watercolors/comida/comida%20icon.png',
+      '/Watercolors/comida/taco0.jpg',
+      '/Watercolors/comida/taco1.jpg',
+      '/Watercolors/comida/taco2%20.jpg',
+      '/Watercolors/comida/taco3.jpg',
+      '/Watercolors/comida/taco4.jpg',
+      '/Watercolors/comida/taco5.jpg',
+      '/Watercolors/comida/taco6%20.jpg',
+      '/Watercolors/comida/taco7.jpg',
+    ]
   },
   '4': {
     title: 'FLEA MARKET',
@@ -66,7 +76,12 @@ export const projectsData: Record<string, {
     description: 'Creative poster design for a Brussels flea market event. The event features DJ sets, tattoos, upcycled jewelry, tooth gems, and second-hand clothes. A vibrant community gathering celebrating creativity and sustainability.',
     area: 'Event Design',
     architect: 'Bambou Hocepied',
-    images: ['/project4-img1.png', '/project4-img2.jpg']
+    images: [
+      '/Watercolors/tiendas/tienda%2001.jpg',
+      '/Watercolors/tiendas/tienda%2002.jpg',
+      '/Watercolors/tiendas/tienda%2003.jpg',
+      '/Watercolors/tiendas/tienda%2004.jpg',
+    ]
   },
   '5': {
     title: 'CALENDAR',
@@ -103,5 +118,35 @@ export const projectsData: Record<string, {
     area: '365 Portraits',
     architect: 'Bambou Hocepied',
     images: Array.from({ length: 120 }, (_, i) => `/Portraits/${i + 1}.jpg`)
+  },
+  '7': {
+    title: 'FLEA MARKET',
+    location: 'Brussels',
+    year: '2025',
+    summary: 'Event poster design for a community flea market featuring DJ sets, tattoos, upcycled jewelry, and more.',
+    description: 'Creative poster design for a Brussels flea market event. The event features DJ sets, tattoos, upcycled jewelry, tooth gems, and second-hand clothes. A vibrant community gathering celebrating creativity and sustainability.',
+    area: 'Event Design',
+    architect: 'Bambou Hocepied',
+    images: [
+      '/Watercolors/tiendas/tienda%2001.jpg',
+      '/Watercolors/tiendas/tienda%2002.jpg',
+      '/Watercolors/tiendas/tienda%2003.jpg',
+      '/Watercolors/tiendas/tienda%2004.jpg',
+    ]
+  },
+  '8': {
+    title: 'Tiendas',
+    location: 'Brussels',
+    year: '2025',
+    summary: 'Event poster design for a community flea market featuring DJ sets, tattoos, upcycled jewelry, and more.',
+    description: 'Creative poster design for a Brussels flea market event. The event features DJ sets, tattoos, upcycled jewelry, tooth gems, and second-hand clothes. A vibrant community gathering celebrating creativity and sustainability.',
+    area: 'Event Design',
+    architect: 'Bambou Hocepied',
+    images: [
+      '/Watercolors/tiendas/tienda%2001.jpg',
+      '/Watercolors/tiendas/tienda%2002.jpg',
+      '/Watercolors/tiendas/tienda%2003.jpg',
+      '/Watercolors/tiendas/tienda%2004.jpg',
+    ]
   }
 }
