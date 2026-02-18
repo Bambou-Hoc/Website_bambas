@@ -4,9 +4,8 @@ import React from "react"
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLanguage } from '@/lib/language-context'
-import { projectsData } from '@/lib/projects-data'
 
 function ProjectCard({ project }: { project: { id: number; title: string; images: string[]; objectPosition?: string } }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -83,63 +82,72 @@ function ProjectCard({ project }: { project: { id: number; title: string; images
 export default function Home() {
   const { language, setLanguage, t } = useLanguage()
   
+  const [portraitImages, setPortraitImages] = useState<string[]>([])
+
+  useEffect(() => {
+    fetch('/api/portraits')
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setPortraitImages(data)
+        }
+      })
+      .catch((err) => console.error('Failed to load portraits:', err))
+  }, [])
+
   const projects = [
     {
       id: 1,
       title: 'Dwell in Memory',
-      images: projectsData['1'].images,
+      images: ['/project1-cover.jpg'],
     },
     {
       id: 2,
-      title: 'The Saree Tote',
-      images: projectsData['2'].images,
+      title: 'Handbag Collection',
+      images: [
+        '/project2-img1.jpg',
+        '/project2-img3.jpg',
+        '/project2-img4.jpg',
+      ],
     },
     {
       id: 3,
-      title: 'Iconos mexicanos',
-      images: projectsData['3'].images,
+      title: 'Minimalist Studio',
+      images: ['/desert-sand-dunes.jpg'],
     },
     {
       id: 4,
-      title: 'Tiendas',
-      images: [
-        '/Watercolors/tiendas/tienda%2001.jpg',
-        '/Watercolors/tiendas/tienda%2002.jpg',
-        '/Watercolors/tiendas/tienda%2003.jpg',
-        '/Watercolors/tiendas/tienda%2004.jpg',
-      ],
+      title: 'Posters',
+      images: ['/project4-img1.png', '/project4-img2.jpg'],
       objectPosition: 'top',
     },
     {
       id: 5,
       title: 'Calendar',
-      images: projectsData['5'].images,
+      images: [
+        '/project5-cover.jpg',
+        '/project5-img1.jpg',
+        '/project5-img2.jpg',
+        '/project5-img3.jpg',
+        '/project5-img4.jpg',
+        '/project5-img5.jpg',
+        '/project5-img6.png',
+        '/project5-img7.jpg',
+        '/project5-img8.jpg',
+        '/project5-img9.jpg',
+        '/project5-img10.jpg',
+        '/project5-img11.jpg',
+        '/project5-img12.jpg',
+        '/project5-img13.png',
+      ],
       objectPosition: 'top',
     },
     {
       id: 6,
       title: 'Portrait of the Day',
-      images: projectsData['6'].images,
-    },
-    {
-      id: 7,
-      title: projectsData['7'].title || 'Project 7',
-      images: projectsData['7'].images,
-    },
-    {
-      id: 8,
-      title: projectsData['8'].title || 'Project 8',
-      images: projectsData['8'].images,
+      images: portraitImages.length > 0 ? portraitImages : ['/placeholder.svg'],
     },
   ]
-
-  const scrollToProjects = (e: React.MouseEvent) => {
-    e.preventDefault()
-    const projectsSection = document.getElementById('projects')
-    if (projectsSection) {
-      projectsSection.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -152,20 +160,19 @@ export default function Home() {
             </h1>
           </Link>
           
-          <nav className="flex flex-col gap-4 mt-12">
+          <nav className="flex flex-col gap-4">
             <Link 
               href="/about" 
               className="text-foreground hover:text-muted-foreground transition-colors uppercase text-sm tracking-widest"
             >
               {t('nav.about')}
             </Link>
-            <a 
-              href="/#projects" 
-              onClick={scrollToProjects}
-              className="text-foreground hover:text-muted-foreground transition-colors uppercase text-sm tracking-widest cursor-pointer"
+            <Link 
+              href="#projects" 
+              className="text-foreground hover:text-muted-foreground transition-colors uppercase text-sm tracking-widest"
             >
               {t('nav.projects')}
-            </a>
+            </Link>
             <Link 
               href="/contact" 
               className="text-foreground hover:text-muted-foreground transition-colors uppercase text-sm tracking-widest"
@@ -194,9 +201,12 @@ export default function Home() {
           >
             PT
           </button>
-          <p className="text-left mt-4 text-xs text-muted-foreground leading-tight transform origin-left" style={{ transform: 'scale(0.6)' }}>
-            © 2026 Bambou Hocepied. All Rights Reserved. Designed &amp; Built by Bambou Hocepied
-          </p>
+          <a 
+            href="mailto:bambouhocepied@gmail.com" 
+            className="text-left hover:text-foreground transition-colors mt-4"
+          >
+            bambouhocepied@gmail.com
+          </a>
         </div>
       </aside>
 
